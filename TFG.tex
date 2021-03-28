@@ -1,0 +1,1776 @@
+\documentclass[journal, a4paper,onecolumn]{IEEEtran}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=22mm,
+ right=22mm,
+ top=20mm,
+ }
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath,amsfonts,amsthm} 
+\usepackage{mathtools}
+\usepackage{float}%Para las gráficas multiples
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow, array} % para las tablas
+\usepackage{float} % para usar [H]
+\usepackage{graphicx} % gráficos
+\usepackage{cancel}%para tachar
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{wrapfig} %para colocar figuras en texto
+\usepackage{appendix}
+\usepackage{imakeidx}
+\setcitestyle{square}
+\usepackage[format=plain,
+            font=it]{caption}
+            
+\newcommand{\figref}[1]{Fig.(\ref{#1})}
+\newcommand{\equationref}[1]{Eq.(\ref{#1})}
+\newcommand{\tabref}[1]{(Tab.(\ref{#1})}
+%definicion para lstlisting para escribir codigo en el latex
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%AQUÍ VA LA PORTADA%
+
+\title{Estudio experimental de la vibración de un parche de tambor mediante el modelo de membrana bidimensional y su ecuación de onda}
+\author{Raúl Soto Angona }
+\date{Septiembre 2020}
+
+
+
+\begin{document}
+
+\maketitle
+(portada ciencias)
+
+\newpage
+
+\hspace{0pt}
+\vfill
+\section*{Resumen del trabajo}
+
+En este trabajo tratamos de estudiar el comportamiento convencional de un tambor bajo un golpeo de una baqueta. Para ello, hemos grabado el sonido producido en distintos puntos de la membrana y, mediante la transformada de Fourier, hemos obtenido unos patrones de intensidad espectral sobre la membrana, identificables como los modos normales de esta.\newline
+
+Partiendo del modelo teórico dado por la resolución de la ecuación de onda para una membrana circular bidimensional, podemos comparar la forma, ratio de aparición y relación de frecuencia entre los patrones y los modos normales teóricos. De esta forma, podemos estudiar la viabilidad de las aproximaciones tomadas en el modelo teórico en un caso real, así como observar la influencia de fenómenos físicos reales no tenidos en cuenta por este en los datos grabados experimentalmente.
+
+\vfill
+\hspace{0pt}
+\pagebreak
+
+\newpage
+\pagebreak
+\hspace{0pt}
+\vfill
+\section*{Abstract}
+In this work we try to study the conventional behaviour of a drum stricken by a drumstick. In order to do this we recorded the sound produced in different points of the membrane and, by means of the Fourier transform, we obtained some spectral intensity patterns identifiable as the normal modes of the latter.\newline
+
+
+Starting from the theoretical model given by the resolution of the wave equation for a bi-dimensional circular membrane, we can compare the shape, appearance ratio and frequency relationship between the patterns and the theoretical normal modes. In this way we can study the viability of the approximations taken by the model in a real case scenario, as well as observing the influence of physical phenomena not taken into account by the latter in the experimental data.
+
+\vfill
+\hspace{0pt}
+\pagebreak
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introducción}
+Las membranas de instrumentos de percusión son unos de los elementos musicales más sencillos de modelar que tenemos a nuestra disposición. Junto a algunos instrumentos de vientos y cuerda sencillos, presentan un comportamiento cuya visualización facilita la comprensión de la naturaleza de los modos normales de vibración. En este trabajo vamos a estudiar la forma de los modos normales de la membrana de un tambor al golpear en distintas condiciones, así como analizar la correspondencia entre el modelo teórico bidimensional y el tambor real a partir del estudio de las aproximaciones tomadas en el primero.\newline 
+
+Para ello, vamos a grabar la distribución espectral sonora producida por la membrana, y representar la variación del peso de los picos espectrales en función de las coordenadas de la membrana. De esta forma, obtendremos unos mapas de patrones, así como las relaciones de frecuencia entre los mismos, comparables todos ellos a los del modelo teórico. \newline
+
+
+\section{Resolución de la Ecuación Diferencial y modelo aproximado}
+  
+Podemos estudiar el comportamiento de nuestro parche mediante la ecuación diferencial de onda.\newline
+
+\begin{equation}
+    \frac{d^2 u}{dt^2}=c^2 \nabla ^2 u
+\end{equation}
+\newline
+
+Donde $u$ es la propiedad del sistema que varia en el tiempo con respecto a una dimensión espacial concreta y c es la velocidad de propagación de la perturbación en el sistema. \newline
+
+En nuestro caso, el sistema es una membrana bidimensional, por lo que la ecuación se plantea de la siguiente manera.\newline
+
+\begin{equation}
+    \frac{d^2 u}{dt^2} = c^2 \left( \frac{d^2 u}{dx^2}+\frac{d^2 u}{dy^2}\right)
+\end{equation}
+\newline
+
+Por la forma de nuestro sistema, es más conveniente expresar la ecuación de onda en coordenadas polares.\newline
+
+\begin{equation}
+     \frac{d^2u}{dr^2}+\frac{1}{r}\frac{du}{dr}+\frac{1}{r^2}\frac{d^2u}{d\theta^2}=c^2\frac{d^2u}{dt^2}
+\end{equation}
+\newline
+
+Esta ecuación de onda será de carácter lineal mientras $c$ sea constante. Esta propiedad es clave, ya que mientras la hipótesis se cumpla, la solución cumplirá el principio de superposición, por el cual, cualquier solución de la ecuación se puede expresar como combinación lineal de soluciones más sencillas. \newline
+
+Si entendemos la ecuación de onda como una ecuación de autovalores, podemos expresar la solución oscilante completa de nuestro sistema como la suma de soluciones con frecuencias discretas. A estas soluciones las llamamos modos normales. Mediante el análisis de Fourier de una solución arbitraria de la ecuación de onda podemos descomponer esa misma en un espectro de modos normales, cuyo peso en la descomposición de cada uno viene dado por su componente de Fourier \cite{luismi}.\newline
+
+Además, nuestro sistema real pierde energía con el tiempo, por lo que añadiremos un término de amortiguamiento. Este será también constante e independiente de las variables de nuestra ecuación. De esta forma completaremos el modelo de nuestro sistema idealizado \cite{soundsimulation}.\newline 
+
+\begin{equation}
+    \frac{d^2u}{dr^2}+\frac{1}{r}\frac{du}{dr}+\frac{1}{r^2}\frac{d^2u}{d\theta^2}=c^2(\frac{d^2u}{dt^2}+2 \alpha \frac{du}{dt}) \quad para \quad 0<r<R , \quad 0<\theta<2\pi
+\end{equation}\newline 
+
+Donde $r$ y $\theta$ son las coordenadas polares de un punto de la membrana, $u(r,\theta,t)$, la amplitud de vibración y $\alpha$, el factor de amortiguamiento.\newline
+
+Las condiciones iniciales de la membrana golpeada serán las siguientes.\newline
+
+\begin{equation}
+  u(r,\theta,0)=\frac{A}{2\pi\sigma}exp\left( -\frac{1}{2\sigma ^2} [(rcos\theta-r_*cos\theta _*)^2+(rsin\theta-r_*sin\theta_*)^2]\right)  
+\end{equation}\newline
+
+\begin{equation}
+    \frac{du}{dt}(r,\theta,0)=0
+\end{equation}\newline 
+
+Donde $\frac{A}{2\pi \sigma}$ es la elongación inicial de la membrana en el punto de impacto, A define la amplitud del impacto, $\sigma$ es la superficie del objeto de impacto en el punto de impacto. $r_*$ y $\theta _*$ son las coordenadas del punto de impacto. \newline
+
+La primera condición inicial representa el impacto como una curva gaussiana cuyo máximo está en el punto de impacto y va decreciendo a medida que llega al borde de la membrana. \newline
+
+La segunda condición inicial indica una velocidad nula en el instante 0 para todos los puntos de la membrana, o lo que es lo mismo, partimos de una membrana estática.\newline 
+
+Establecemos la condición de contorno de la membrana.\newline
+
+\begin{equation}
+    u(R,\theta,t)=0
+\end{equation}\newline 
+
+ Esta condición representa como nuestra membrana estaría perfectamente amarrada en su limite, por lo tanto, el borde la membrana no oscila de ninguna forma. En principio, esta condición es incompatible con la condición de impacto inicial, pero para intensidades de impacto lo suficientemente pequeñas y posiciones lo suficientemente alejadas del borde podemos suponer que la amplitud se amortigua de tal forma que es despreciable en esta .\newline
+
+Está ecuación diferencial se puede resolver por el método de separación de variables \cite{ecuacionesdif}
+,siendo \equationref{solucion_ecuacion}  la solución general que obtenemos \cite{soundsimulation};\newline 
+
+\begin{equation}
+\begin{aligned}
+u(r, \theta, t) &=\frac{1}{2} \sum_{n=1}^{\infty}\left[J_{0}\left(k_{0 n} r\right) a_{0 n} \cos \left(\sqrt{\omega_{m n}^{2}-\alpha^{2}} t\right) \exp (-\alpha t)\right] \\
+& +\sum_{m=1}^{\infty} \sum_{n=1}^{\infty}\left[J_{m}\left(k_{m n} r \right)\left(a_{m n} \cos (m \theta)+b_{m n} \sin (m \theta)\right) \cos \left(\sqrt{\omega_{m n}-\alpha^{2}} t\right) \exp (-\alpha t)\right]
+\end{aligned}
+\label{solucion_ecuacion}
+\end{equation}\newline 
+
+Donde $J_m$ es la función de Bessel ordinaria de orden m, $k_{mn}$ es el numero de onda asociado al modo normal relacionado con $J_m$ \newline
+
+En esta solución, como en la solución de toda ecuación de onda, la amplitud de vibración del sistema en distintos puntos, se expresa como la suma ponderada de los infinitos modos normales de vibración del sistema. Podemos relacionar los números de onda de nuestro modelo con los ceros de la función de Bessel correspondiente mediante el radio de la membrana. Como podemos relacionar también la pulsación de los modos normales con el numero de onda mediante la velocidad de la onda en la membrana, podemos finalmente relacionar la pulsación de los modos normales de nuestra membrana con los ceros de las funciones de Bessel.\newline
+
+\begin{equation}
+  k_{mn}=\frac{\beta _{mn}}{R} \qquad \omega_{mn}=c k_{mn} \qquad \omega_{mn}= c\frac{\beta _{mn}}{R}\label{cerobessel}
+\end{equation}\newline
+
+Donde $\beta_{mn}$ es el cero enésimo de la función de Bessel de orden m. De esta forma, podemos establecer una relación de proporcionalidad directa entre los ceros de la función de Bessel y la frecuencia audible. \newline 
+
+Esta relación se mantiene siempre y cuando en el sistema real $c$ sea constante y el amortiguamiento $\alpha$,  sea despreciable o un término lineal de la forma \equationref{cerobesselamort}.\newline
+\begin{equation}
+\omega _{mn} = c \frac{\beta_{mn}}{R} - \alpha 
+    \label{cerobesselamort}
+\end{equation}
+
+
+Recordemos las expresiones que toma la función de Bessel de primera especie como desarrollo en serie y forma integral.\newline
+
+\begin{equation}
+    {\displaystyle J_{m}(x)=\sum _{\tau=0}^{\infty }{\frac {(-1)^{\tau}}{\tau!\Gamma (\tau+m +1)}}{\left({\frac {x}{2}}\right)}^{2\tau+m }}\qquad {\displaystyle J_{m}(x)={\frac {1}{\pi }}\int _{0}^{\pi }\cos(m\tau -x\sin \tau )\,d\tau }
+\end{equation}\newline 
+
+Los coeficientes que multiplican a la evaluación de las frecuencias normales, corresponden a la amplitud de estas mismas en las coordenadas correspondientes de la membrana, o lo que es lo mismo.\newline
+
+\begin{equation}
+    Elongaci\acute{o}n(r, \theta)= J_{m}(\beta_{mn}\frac{r}{R})(a_{mn}cos(m\theta)+b_{mn}sin(m\theta))
+    \label{Amplitudomega}
+\end{equation}\newline
+
+Donde los coeficientes $a_{mn}$ y $b_{mn}$ se expresan de la siguiente forma:\newline
+
+\begin{equation}
+\begin{array}{l}
+a_{m n}=\frac{2}{\pi R^{2}\left[J_{m+1}\left(\beta_{m n}\right)\right]^{2}} \int_{0}^{R} \int_{0}^{2 \pi} r J_{m}\left(\beta_{m n} \frac{r}{R}\right) u(r, \theta, 0) \cos (m \theta) d \theta d r \\
+b_{m n}=\frac{2}{\pi R^2\left[J_{m+1}\left(\beta_{m n}\right)\right]^{2}} \int_{0}^{R} \int_{0}^{2 \pi} r J_{m}\left(\beta_{m n} \frac{r}{R}\right) u(r, \theta, 0) \sin (m \theta) d \theta d r
+\end{array}
+\label{coeficientes}
+\end{equation}\newline 
+
+En \figref{modos normales} podemos ver las formas que nuestros modos normales toman sobre una membrana\cite{fisicamusical}.\newline
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{modos_teoricos.png}
+    \caption{Modos normales de una membrana cilíndrica con la notación (m,n) en la parte superior y la relación de frecuencia de aparición con respecto al fundamental en la parte inferior. \cite{fisicamusical}}
+    \label{modos normales}
+\end{figure}
+
+
+Estas soluciones nos proporcionan un marco teórico con el que comprender el comportamiento de una membrana bidimensional siempre que se cumplan ciertas condiciones como consecuencia de las aproximaciones tomadas en la resolución de la ecuación diferencial. \newline
+
+Estas condiciones serán la bidimensionalidad completa del sistema, despreciando el grosor de la membrana, o la completa uniformidad de la distribución de tensión sobre la membrana, lo que equivaldría a una afinación igual y perfecta de todos los tornillos tensores en una membrana real. Además, este modelo supone una membrana completamente flexible y sin ningún tipo de rigidez, así como un sistema aislado en el vacío y la linealidad de la respuesta del sistema ante un estimulo externo. Otras aproximaciones que esperamos que tengan menos efecto en los datos experimentales son la constate de la velocidad $c$, para cualquier dirección de la membrana y frecuencia , y el amortiguamiento independiente de la frecuencia. La diferencia entre los datos experimentales y los resultados producidos por nuestro modelo se deberán a estas aproximaciones  \cite{fisicamusical}.
+
+\section{Diseño del Dispositivo experimental}
+Una vez hemos desarrollado el modelo teórico que sustenta nuestro sistema de estudio, es hora de tomar medidas sobre el sistema real y compararlas con este.\newline
+
+Tenemos que construir un dispositivo capaz de tomar datos experimentales grabando el sonido producido por una membrana real, de tal forma, que estas medidas nos aporten información relevante y tratable sobre el comportamiento espectral de la membrana con su geometría.
+
+\subsection{Consideraciones previas a la medida}
+Con nuestra simulación podemos reproducir el comportamiento de la membrana en cualquier punto de esta con precisión diferencial. Sin embargo, al grabar con un micrófono, estamos promediando la intensidad del sonido que recibimos desde un punto. Debido a esto, el procedimiento experimental debe seguir ciertos cuidados y precauciones. \newline
+
+Primeramente, vamos a intentar que nuestro sistema se aproxime a la idealidad lo más posible, de tal forma que podamos hacer una comparación adecuada con nuestro  modelo teórico, así como poder estudiar los resultados de una forma más sencilla. Para cumplir con esto hemos tenido en cuenta las siguientes medidas \cite{master}:
+\vspace{0.5cm}
+
+
+\begin{itemize}
+    \item Hemos utilizado un parche de tambor transparente para evitar así la amortiguación adicional que añaden los recubrimientos ásperos.
+
+    \item Hemos utilizado un parche de membrana sencilla, por lo que los parches de múltiple capa con aceite quedan descartados. De esta forma, evitamos la aparición de modos normales debido al acoplamiento de membranas resonantes, y la amortiguación por el fluido entre estas.
+    
+    \item El tambor ha de tener el máximo posible de tornillos de afinación, y estos deben de estar aplicando la misma tensión sobre la membrana. \footnote{Ver apéndices para método de afinación}
+    
+    \item La estimulación del parche no debe de ser excesivamente fuerte para evitar incurrir en comportamientos no lineales de la membrana. Además debe estar automatizada para garantizar la consistencia en la fuerza con la que se golpea la membrana.
+\end{itemize}
+\vspace{0.5cm}
+ 
+Sigamos ahora con el proceso de medida. Para poder comparar la vibración de la membrana en cada punto con su contrapartida simulada hemos dispuesto un micrófono de condensador de pequeño tamaño a poca distancia del parche. El objetivo de esto es que el sonido que obtengamos se corresponda a la promediación de la vibración de una sección lo más pequeña posible de la membrana. De esta forma, desplazaremos el micrófono por distintos puntos de la membrana, obteniendo una idea aproximada del comportamiento del parche a partir del estudio de puntos distribuidos de forma regular sobre este.  \newline
+
+\subsection{Dispositivo experimental}
+Para realizar las tareas de medición descritas anteriormente hemos utilizado el siguiente dispositivo experimental. Podemos ver el montaje completo del dispositivo en \figref{Dispositivoexpplanta}\footnote{Ver apéndice para especificaciones técnicas}: \newline
+
+\begin{itemize}
+\item Micrófono de condensador de pequeño tamaño
+\item Plotter %Roland DXY-1150
+\item Generador de funciones %Agilent 33120a
+\item Transductor
+\item Baqueta de bellota redonda
+\item Parche %Remo Emperor Clear 
+\item Soporte de tensión para la membrana (Tom)
+\item Tarjeta de sonido USB
+\item Software de control Keysight VEE 
+\item Bloques de aislante acústico
+\end{itemize}
+\vspace{0.5cm}
+
+
+
+Este dispositivo se ha montado con la idea de grabar el sonido producido por el parche del tambor al golpearlo, mediante la colocación del micrófono en distintos puntos de este de forma mecánica. Para coordinar estas tareas entre sí hemos utilizado las funciones I/O del software VEE, con el fin de mover el micrófono, grabar, y golpear de forma sincronizada.
+\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 12cm]{dispexpalzado.jpeg}
+   % \caption{Dispositivo experimental}
+    \label{Dispositivoexp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 12cm]{dispexpplanta.jpeg}
+    \caption{Dispositivo experimental}
+    \label{Dispositivoexpplanta}
+\end{figure}
+
+
+
+El micrófono lo hemos colocado lo más próximo posible a la membrana , para capturar la vibración de una región de la misma lo más puntual posible. El micrófono lo trasladamos de una posición de grabación a otra moviéndolo con un plotter. Este, está directamente conectado al plotter en la posición donde usualmente iría conectada la pluma. Debemos tener cuidado con la conexión del micrófono con el plotter para evitar la aparición de ruido en las medidas. \footnote{En las primeras iteraciones del diseño del dispositivo colocamos el micrófono justo en la pluma del Plotter. En esta posición los servos de la pluma transmiten todo el ruido del movimiento al micrófono, contaminando por completo el contenido espectral de los datos que recogemos. Esto lo comprobamos tras obtener la descomposición espectral de unas medidas iniciales totalmente diferentes a lo esperado.} Además, el micrófono debe estar perfectamente alineado con la membrana para que la intensidad sonora captada sea la misma en cada uno de sus puntos.
+Esto lo garantizamos mediante la separación del micro de los servos mediante una varilla de plexiglass, y la nivelación de la membrana con el micrófono de forma paralela.\newline 
+
+\subsection{Calibrado del micrófono}
+
+Previo a comenzar a medir, conviene asegurarnos de que nuestro micrófono tiene una respuesta lineal en el rango de frecuencias de estudio. Para calibrar esto, vamos a estudiar la respuesta de la membrana y el micrófono ante un barrido de frecuencia. Para ello, hemos utilizado el software Soundcard Oscillosope que nos permite controlar nuestra tarjeta de sonido para emitir y analizar señales de tal forma que podemos emitir un barrido de frecuencia por un altavoz conectado al ordenador. \newline 
+
+Enfrentado al altavoz, colocamos primero la membrana y tras esta el microfono conectado a la tarjeta. El microfono grabará la respuesta de la membrana ante el barrido de frecuencia, grabando los picos de intensidad que se producen en las frecuencias de resonancia de esta. Después repetimos el mismo procesos pero sin la membrana, para observar la respuesta propia del micrófono ante el barrido de frecuencia para ajustarla en caso de que fuese necesario.
+
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=12cm]{parche sin columna de aire_bw.jpg} 
+    \caption{Respuesta de la membrana al barrido de frecuencia}
+    \label{respuesta_parche}
+    \end{figure}
+    
+    \begin{figure}[H]
+    
+ \centering\includegraphics[width=12 cm, height = 8 cm]{respmicro.PNG}
+    \caption{Respuestas del micrófono al barrido de frecuencia}
+    \label{respuesta_micro}
+  \end{figure} 
+
+En \figref{respuesta_parche} y \figref{respuesta_micro} podemos observar como la respuesta en amplitud del micrófono es uniforme a frecuencias entre 0 y 5000 Hz. La respuesta de la membrana a nuestro barrido de frecuencia muestra los picos más importantes en  el rango de 100-1000 Hz , por lo que el micrófono presenta una respuesta adecuada para el estudio de nuestro sistema.\newline
+
+\subsection{Proceso de medida}
+El micrófono lo desplazaremos mediante el movimiento de la pluma del plotter a coordenadas especificas. Estas serán, coordenadas serán las del punto del parche que queremos grabar. Estos puntos los distribuiremos de forma regular por la membrana, para que nuestras medidas sean adecuadamente representativas del comportamiento del parche. En nuestro caso hemos decido recorrer el parche mediante círculos concéntricos, de tal forma que a cada punto de grabación se le asignan unas coordenadas polares. \newline
+
+A continuación incluimos un ejemplo en pseudocódigo que realiza las funciones del movimiento \footnote{Ver apéndices para ver el código en bloques implementado en VEE}.
+\newpage
+
+ \begin{lstlisting}
+ 
+ start_mov;{
+ 
+ go_to (start_pos = (0,R) );
+ 
+     for (numberOfCircles) {
+     
+         go_to_relative (0,-R/n)
+             for (numberOfPointsInCircle) {
+    
+                  arc_angle_relative(angle/numberOfPointsInCircle)
+                  execute(start_audiocapture);
+                    execute(start_hit);
+                                     }}
+ }
+ \end{lstlisting}
+
+Lo que se traduce en el recorrido del microfono representado en \figref{mapa flechas}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{mapa_flechas.jpeg}
+    \caption{Esquema de posiciones sobre el parche}
+    \label{mapa flechas}
+\end{figure}
+
+Donde el punto 1 se refiere a la posición de golpeo, el círculo 2 representa uno de los círculos concéntricos que recorre el micrófono, y el punto 3 es el punto donde el micrófono graba el sonido.\newline 
+
+En cuanto a la estimulación de la membrana, en un principio la baqueta golpea en un punto central, ya que es la situación de máxima simetría predicha por nuestro modelo. En teoría, en esta posición solo se estimulan los modos sin simetría axial, o sea los modos (0,n), y por lo tanto, las diferencias entre los datos experimentales y los de la posterior simulación serán más aparentes. Esto se debe a que la aparición de cualquier modo que no se corresponda con los modos (0,n) se deberán a la diferencia de idealidad en nuestro dispositivo experimental con respecto al modelo.\newline
+
+También hemos tomado medidas en la que estimulamos la membrana en una posición alejada del centro con el fin de comparar los espectros de ambas situaciones.\newline
+
+La estimulación la produce la bellota esférica de una baqueta. Para controlar el golpeo hemos conectado la bellota al motor rescatado de un disco duro. Este, se puede conectar fácilmente a un generador de funciones, por lo que la señal que generemos con él se traducirá en el movimiento de la aguja del motor, y por ende, en el movimiento de golpeo sobre el parche.
+\newline
+
+Aunque es posible tomar medidas transmitiendo una onda cuadrada al motor y sincronizando el movimiento y grabación del microfono entre los ciclos, es mucho mas preciso programar la emisión de un impulso corto al final de cada movimiento, previo a la grabación del sonido. \newline
+
+En cuanto a la fuerza con la que golpeamos, la controlamos con el voltaje de la señal transmitida. Debemos ajustar este voltaje para obtener medidas con una intensidad significativa, pero que no incurran en comportamientos de vibración no lineales.\newline
+
+En nuestro caso hemos utilizado la siguiente configuración del generador de funciones para estimular la membrana.
+\newline 
+
+ \begin{lstlisting}
+ start_hit{
+ 
+    signal= (shape=square; amplitude= VPP; dcycle=80%; freq=1 Hz);
+ 
+     if(execute==true) {
+        output=on;
+        output_signal=  pulse(signal);
+            }
+     }
+ \end{lstlisting}
+
+Este código le pasa un pulso de una señal de forma cuadrada, con una amplitud definida en voltios pico-pico, por ejemplo 2 VPP, un ciclo de trabajo del 80\% y un frecuencia de 1 Hz \footnote{El ciclo de trabajo se ha asignado a 80\% por las especificaciones de nuestro generador de funciones. Lo ideal es maximizar el ciclo de trabajo de tal forma que haya un lapso lo menor posible de tiempo en el que se produce el impacto.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width= 11 cm]{señal_genfun.png}
+    \caption{Representación gráfica ejemplificando la señal que transmitimos al motor para estimular el parche.}
+    \label{pulsogenfun}
+\end{figure}
+
+
+%\begin{figure}[H]
+ %   \centering
+ %   \includegraphics {genfun.png}
+  %  \caption{Bloques de movimiento en VEE}
+   % 
+%\end{figure} 
+
+  \subsection{Implementación en VEE}
+  
+El programa en VEE consta de varias partes diferenciables.
+En primer lugar tenemos los bloques de comunicación con el plotter que mueven el micrófono. Estos consisten en dos bucles anidados que realizan circunferencias concéntricas por la superficie del parche. Una vez ha finalizado la traslación del micrófono a una posición concreta dentro de estos bucles, se da la orden al generador de funciones de mandar la señal de impulso a golpear la membrana. Mientras el generador de funciones actúa, se inicia simultáneamente la adquisición de datos del micrófono, consiguiendo así sincronizar el impacto de la membrana con el encendido del micrófono, y evitando que el ruido producido por el plotter en su movimiento contamine nuestros datos. Mientras el micrófono esté encendido, se graban los datos en un archivo .txt y tras un tiempo controlable por la selección de variables de escaneo, este se cierra y el micrófono y da paso al siguiente movimiento, reiniciando.  
+\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{esquema_programa.png}
+    \caption{Esquema en diagrama de bloques del funcionamiento del programa de adquisición de datos experimentales}
+    \label{esquema}
+\end{figure}
+
+En primera instancia, nos interesa comprobar la linealidad del sistema y la constancia temporal de parámetros de la membrana, como son la velocidad de propagación y el amortiguamiento. Para ello, adaptaremos nuestro dispositivo experimental, de tal forma que haga las veces de espectrómetro y nos permita observar la evolución temporal del espectro de la membrana. \newline
+
+En el proceso de grabación, los datos en el dominio del tiempo se almacenan en un array 1D. El tamaño de este depende de la resolución con la que tomamos nuestros datos y el tiempo de medida. Cada dato de amplitud sonora almacenado en el array se corresponde con una marca temporal específica. Esta marca temporal, coincide con la relación entre la frecuencia de escaneo de nuestro micrófono y el tamaño del buffer de la variable donde se almacenan los datos. En una primera instancia hemos elegido una frecuencia de escaneo de 50000 Hz y un tamaño de buffer de 5000 muestras, dando lugar a marcas temporales que distan en 0.2 ms. Estos enteros son del tamaño de 32 bits, luego el buffer donde se almacena el audio tendrá un peso de 20 kilobytes. \newline
+
+Con estas relaciones podemos controlar el tiempo de grabación, de tal forma que 50000 iteraciones de nuestro bucle de grabación equivaldrían a un clip de audio de 1 s.
+Cada vez que se llene el buffer de datos, este se vuelca, ya sea sobre un archivo, un array u otro elemento, y se continua con el proceso de medida. Esto, junto con nuestros valores, equivale a un volcado del buffer cada 0.1 segundos.
+\newline 
+
+Mientras se graban nuestros datos en el dominio del tiempo, nuestro programa también realiza una transformada de Fourier FFT de los datos entrantes. Esta transformada se hace sobre cada volcado del buffer, y por nuestra elección de frecuencia de escaneo, proporcionará información sobre picos espectrales con una resolución de $\pm$ 10 Hz entre 0 y 25000 Hz. Puesto que el volcado del buffer se hace de forma regular en el tiempo de grabación, podemos decir que estamos haciendo la transformada de Fourier de cada instante de la grabación.
+%Esta transformada de Fourier discreta se aplica sobre cada grupo de 5000 datos, de tal forma que obtenemos el espectro de cada marca temporal por separado, y podemos comparar la amplitud del peso espectral de sus picos en el tiempo. 
+\textit{Grosso modo}, hablaríamos de que la FFT se aplica a cada \textit{frame} de la captura de nuestros datos, produciendo un \textit{frame} del espectro que evoluciona de la misma forma que los datos en el dominio del tiempo. Esta transformada a \textit{frames} se graba en otro archivo para su posterior estudio. \newline
+
+Con esta disposición de los datos y un poco de procesado posterior podemos representar la evolución temporal de los picos espectrales \figref{espectro_t_arbitrario}.\newline % La idea detrás de este análisis espectral es ver el decaimiento temporal de los modos normales y la distribución espectral de los picos en función del tiempo, comprobando así la correspondencia entre la evolución temporal del sistema y la predicha por el modelo teórico. \newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{Espectro_t_punto52.png}
+    \caption{Espectro en el tiempo de un punto de la membrana arbitrario}
+\label{espectro_t_arbitrario}
+\end{figure}
+
+Es importante tener en cuenta que la intención de este dispositivo experimental es intentar imitar la actuación de un espectrómetro, pero la ausencia de equipo especializado nos ha obligado a adaptarnos a la situación mediante un uso más ingenioso de la FFT con el tamaño adecuado de las variables de grabación.\newline
+
+Una vez hemos observado la evolución temporal del espectro y comprobado la linealidad de su comportamiento, queremos ver con más detalle la riqueza espectral de este. Necesitamos más definición en la grabación de los datos, es por esto que hemos tomado de forma adicional un grupo de medidas en las que la frecuencia de muestreo son 15000 Hz y el numero de muestras son 17500. De esta forma, el micrófono escucha el espectro producido por la membrana durante el tiempo de decaimiento, y obtenemos una mayor resolución de frecuencia en la transformada de Fourier.\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{Espectro_punto52.png}
+    \caption{Espectro completo de un punto de la membrana arbitrario}
+
+\end{figure}
+
+
+
+\section{Resultados}
+
+\subsection{Estudio de la evolución temporal del espectro}
+
+Ahora que hemos tomado nuestros datos experimentales y tenemos un modelo teórico con el que compararlos, vamos a analizarlos.\newline
+
+Tenemos un total de 300 espectros con 10 frames cada uno. 
+
+\begin{figure}[H]%
+\centering
+
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto31.png} }}%
+    \quad
+    \subfloat[\centering]{\includegraphics[width=8cm]{Espectro_t_punto38.png}}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto45.png} }}%
+    \quad
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto52.png} }}%
+    \quad
+   
+    \end{figure} 
+    
+    \begin{figure}[H]%
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto121.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto128.png} }}%
+    \quad
+    \centering
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto135.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectro_t_punto142.png} }}%
+    \quad
+    \caption{Algunos espectros en el tiempo de distintas posiciones de la membrana}
+    \end{figure}
+   
+Cualitativamente podemos ver como el amortiguamiento es similar para cada frecuencia y como los picos en el espectro de cada punto de la membrana son similares aún con distintas amplitudes. Un análisis cualitativo de las amplitudes de los picos fundamentales en distintas posiciones nos permite comprobar que la naturaleza del decaimiento de la amplitud es exponencial y similar para todos estos. \newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{decaimiento_lineal.png}    
+    \caption{Decaimiento exponencial de la amplitud del pico de 173 Hz con el tiempo}
+\label{decaimiento_amplitud}
+\end{figure}
+
+Mediante el ajuste en \figref{decaimiento_amplitud} confirmamos lo bien que se ajusta la evolución de la amplitud de los picos con el tiempo a un decaimiento exponencial. Además la bondad del ajuste garantiza que los términos no lineales son despreciables. En la sección IV-E se utilizará esta información junto con el resto de datos tomados experimentalmente para determinar el valor del término de amortiguamiento de la membrana.
+
+\subsection{Estudio de los espectros con respecto a la posición de la membrana}
+
+Puesto que hemos comprobado que el decaimiento temporal es el mismo para todos los puntos y que no aparecen picos nuevos en el tiempo, sino que los iniciales se amortiguan, vamos a centrar nuestro estudio en el espectro completo de cada posición. \newline
+
+\begin{figure}[H]%
+    \centering
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto31.png} }}%
+    \quad
+    \subfloat[\centering]{\includegraphics[width=8cm]{Espectrolog_punto38.png}}%
+    \quad
+     
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto45.png} }}%
+    \quad
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto52.png} }}%
+\end{figure}
+
+ \begin{figure}[H]%
+ \centering
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto121.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto128.png} }}%
+    \quad
+    \end{figure} 
+    
+    \begin{figure}[H]
+        \centering
+         \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto135.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto142.png} }}%
+    \quad
+     \caption{Algunos espectros de distintas posiciones de la membrana para un golpe en el centro}
+    \end{figure}
+
+%Tras una comparativa de todas las posiciones podemos ver que picos son los más comunes y relevantes en amplitud.\newline
+Para minimizar el ruido captado por el micrófono hemos tomado cada espectro 10 veces y los hemos promediado. Hemos seleccionado los 9 picos en orden con mayor peso en el espectro para su posterior estudio. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width= \linewidth]{Espectrolog_punto54picos.png}
+    \caption{Picos seleccionados de los espectros golpeando en el centro }
+    \label{seleccion picos centrado}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|}
+nº pico & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9  \\ \hline
+Freq(Hz)   & 173.0   & 343.7   & 497.1   & 570.9   & 626.6   & 684.0   & 768.0   & 1031.0    & 1060.0     
+\end{tabular}
+\caption{Frecuencias de los picos seleccionados}
+\end{table}
+
+Repetimos lo mismo para los espectros golpeando en una posición alejada del centro.\newline
+
+\begin{figure}[H]%
+    \centering
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto31d.png} }}%
+    \quad
+    \subfloat[\centering]{\includegraphics[width=8cm]{Espectrolog_punto38d.png}}%
+    \quad
+     
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto45d.png} }}%
+    \quad
+     \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto52d.png} }}%
+\end{figure}
+
+ \begin{figure}[H]%
+ \centering
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto121d.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto128d.png} }}%
+    \quad
+    \end{figure} 
+    
+    \begin{figure}[H]
+        \centering
+         \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto135d.png} }}%
+    \quad
+    \subfloat[\centering]{{\includegraphics[width=8cm]{Espectrolog_punto142d.png} }}%
+    \quad
+     \caption{Espectro de distintas posiciones de la membrana para un golpeo descentrado}
+    \end{figure}
+    
+Realizamos la selección de picos de la misma forma que en el caso anterior.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Espectrolog_punto54dpicos.png}
+    \caption{Selección de picos de los espectros }
+    \label{seleccionde picos}
+\end{figure}
+    
+    
+    \begin{table}[H]
+\centering
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|}
+nº pico & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9  \\ \hline
+Freq(Hz)   & 162.9   & 342.0   & 467.1   & 595.7   & 727.7   & 825.0   & 854.6   & 980.6    & 1086.0     
+\end{tabular}
+\caption{Frecuencias de los picos seleccionados}
+\end{table}
+    
+%Puesto que tenemos un modelo teórico que nos relaciona frecuencias medidas con modos normales, vamos a obtener las frecuencias teóricas de los  modos normales para identificar los picos de los espectros con estos modos.\newline
+
+
+%Podemos observar como para frecuencias altas, hay más modos normales que producen frecuencias en nuestro rango de precisión, por lo que es de esperar que la vibración en estas frecuencias este compuesta de varios modos y no uno aislado.
+
+\subsection{Mapas de los modos normales experimentales}
+Vamos a representar la intensidad de los picos en función de la posición de la membrana con la intención de observar unos patrones similares a modos normales.% De esta forma podemos intentar asociar las formas observadas sobre la membrana con las formas de los modos normales teóricos. Además podemos comprobar la relación de frecuencias entre los modos observados y los modos teóricos.\newline
+
+\begin{figure}[H]%
+    \centering
+    \subfloat[\centering][Distribución del pico de 173 Hz]{{\includegraphics[width=8cm]{mapa1.png} }}%
+    \quad
+    \subfloat[\centering][Distribución del pico de 343.7 Hz]{{\includegraphics[width=8cm]{mapa2.png} }}%
+     \quad
+    \end{figure}
+    \begin{figure}[H]%
+     \subfloat[\centering][Distribución del pico de 497.1 Hz]{{\includegraphics[width=8cm]{mapa3.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 576.9 Hz]{{\includegraphics[width=8cm]{mapa4.png} }}%
+     \quad 
+     \end{figure}
+     \begin{figure}[H]%
+ \subfloat[\centering][Distribución del pico de 626.6 Hz]{{\includegraphics[width=8cm]{mapa5.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 684 Hz]{{\includegraphics[width=8cm]{mapa6.png} }}%  
+     
+    \end{figure}
+    
+    \begin{figure}[H]
+ \centering
+       \subfloat[\centering][Distribución del pico de 768 Hz]{{\includegraphics[width=8cm]{mapa7.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 1031 Hz]{{\includegraphics[width=8cm]{mapa8.png} }}%
+     \quad
+        \subfloat[\centering][Distribución del pico de 1060 Hz]{{\includegraphics[width=8cm]{mapa9.png} }}%
+    \caption{Mapas de intensidad de las frecuencias espectrales en distintas posiciones del parche}
+    \end{figure}
+ 
+ En estos mapas se identifican las zonas brillantes como antinodos de vibración y las zonas más oscuras como nodos, dibujando así los patrones de los modos normales sobre la membrana.\newline
+ 
+%En estos mapas podemos observar varios fenómenos relevantes. El primero y más importante, en nuestra membrana real no se cumple la premisa de tensión uniforme, o lo que es lo mismo, el parche está mal afinado. Esto lo podemos observar fácilmente por la falta de simetría en los vientres y nodos y su desplazamiento hacia los lados de la membrana.
+%Además podemos observar como 300 y 320 Hz se deben al mismo modo de vibración pero desfasado 90º. Podemos especular que esto se debe a una resonancia inducida por la existencia de una cámara resonante acoplada a la membrana. Finalmente podemos ver como para frecuencias más altas la forma de los modos es más difícil de distinguir debido a la predominancia de modos múltiples en esos rangos de frecuencia.
+Repetimos lo mismo para los modos de la membrana golpeada fuera del centro.
+
+\begin{figure}[H]%
+\centering
+
+    \subfloat[\centering][Distribución del pico de 162.9 Hz]{{\includegraphics[width=8cm]{mapa1d.png} }}%
+    \quad
+    \subfloat[\centering][Distribución del pico de 342.0 Hz]{{\includegraphics[width=8cm]{mapa2d.png} }}%
+     \quad
+  \subfloat[\centering][Distribución del pico de 467.1 Hz]{{\includegraphics[width=8cm]{mapa3d.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 595.7 Hz]{{\includegraphics[width=8cm]{mapa4d.png} }}%
+     \quad
+     \subfloat[\centering][Distribución del pico de 727.7 Hz]{{\includegraphics[width=8cm]{mapa5d.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 825 Hz]{{\includegraphics[width=8cm]{mapa6d.png} }}%
+    \end{figure}
+    
+    \begin{figure}[H]%
+        \centering
+        \subfloat[\centering][Distribución del pico de 854.6 Hz]{{\includegraphics[width=8cm]{mapa7d.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 980.6 Hz]{{\includegraphics[width=8cm]{mapa8d.png} }}%
+     \quad
+    \subfloat[\centering][Distribución del pico de 1086.0 Hz]{{\includegraphics[width=8cm]{Mapa9d.png} }}%
+    \quad
+       \caption{Mapas de intensidad de las frecuencias espectrales en distintas posiciones del parche}
+    
+    \end{figure}
+
+\subsection{Análisis de resultados}
+Una vez hemos representado la variación de intensidad de los picos espectrales en función de la posición en la membrana, podemos intentar asociar los patrones obtenidos con las formas de los modos normales teóricos obtenidos de la solución de la ecuación de onda. \newline \newpage
+
+
+
+\begin{figure}[H]%
+\centering
+
+    \subfloat[\centering][Asociación con el modo (0,1)]{{\includegraphics[width=5cm]{Mapa1teorico.png} }}%
+     \subfloat[\centering][Asociación con el modo (1,1)]{{\includegraphics[width=5cm]{Mapa2teorico.png} }}%
+     \subfloat[\centering][Asociación con el modo (2,1)]{{\includegraphics[width=5cm]{Mapa3teorico.png} }}%
+     
+    \end{figure}
+    
+    \begin{figure}[H]%
+    \centering
+    
+    \subfloat[\centering][Asociación con el modo (0,2)]{{\includegraphics[width=5cm]{Mapa4teorico.png} }}%
+    \subfloat[\centering][Asociación con el modo (3,1)]{{\includegraphics[width=5cm]{Mapa5teorico.png} }}%
+     \subfloat[\centering][Asociación con el modo (1,2)]{{\includegraphics[width=5cm]{Mapa6teorico.png} }}%
+  
+    \end{figure}
+    
+     \begin{figure}[H]%
+    \centering
+    
+    \subfloat[\centering][Asociación con el modo (4,1)]{{\includegraphics[width=5cm]{Mapa7teorico.png} }}%
+    \subfloat[\centering][Asociación con el modo (5,1)]{{\includegraphics[width=5cm]{Mapa8teorico.png} }}%
+     \subfloat[\centering][Asociación con el modo (6,1)]{{\includegraphics[width=5cm]{Mapa9teorico.png} }}%
+   \caption{Asociación de patrones experimentales con los modos teóricos  }
+    \end{figure}
+    
+Podemos identificar con relativa facilidad una buena serie de modos normales en el espectro. Además, se corresponden con el orden de aparición predicho por el modelo teórico, siendo el modo (2,2) el único que no aparece de forma apreciable en los espectros. También podemos observar como los modos se ven desplazados desde el borde, fenómeno causado muy posiblemente por un desalineado de la membrana con el micrófono, aunque también se puede ver causado por una diferencia sutil de afinación de varios tornillos tensadores.\newline
+
+Un fenómeno interesante a tener en cuenta es la observación de multitud de modos de distintas formas. Dado que estamos golpeando en el centro, es de esperar que los modos con más protagonismo sean los modos (0,n). Sin embargo, esta situación no se observa, por lo que es lógico asumir que la estimulación de la membrana no se está realizando perfectamente centrada. Para comprobar esta hipótesis, podemos evaluar la solución de la ecuación de onda para un caso en el que el impacto esté ligeramente descentrado\footnote{Ver apéndice sobre evaluación de cálculos del modelo teórico} y compararlo con el cálculo del espectro bajo el modelo teórico en condiciones de idealidad.\newline
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Espectro_punto54_comparativa.png} 
+
+    \end{figure}
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Espectro_teórico_asim.png} 
+   \caption{Comparativa de espectro grabado experimentalmente y calculado según la solución de la ecuación de onda }
+   \label{Espectro_teorico_comparativa}
+    \end{figure}
+    
+Al observar \figref{Espectro_teorico_comparativa} estamos comparando el espectro grabado experimentalmente y los picos que aparecen en este, con una representación de la amplitud de los modos normales de la ecuación de onda ideal que aparecen para unas condiciones iniciales en las que la gaussiana que representa el impacto se ha descentrado ligeramente.\newline
+
+Aunque la distribución de intensidad de picos es similar, los picos relevantes que aparecen en el espectro calculado se corresponden esencialmente con modos (0,n), por lo que el desplazamiento del excitador no es la causa de la aparición de todos los modos normales, y esta tiene que deberse a la influencia de otro fenómeno o característica del sistema no tenida en cuenta por el modelo de nuestra ecuación de onda. \newline
+
+
+En cuanto al ratio de frecuencias a la que aparecen los modos normales, podemos comparar las relaciones teóricas con las experimentales como aparecen en la \tabref{relacionfreqmodoscentro}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c}
+Pico & Freq.(Hz) & Modo Asoc. & Ratio Freq Asoc. & Ratio Freq Exp \\ \hline
+1    & 173       & (0,1)      & 1                & 1              \\ \hline
+2    & 343.7     & (1,1)      & 1.54             & 1.98           \\ \hline
+3    & 497.1     & (2,1)      & 2.14             & 2.87           \\ \hline
+4    & 576.9     & (0,2)      & 2.3              & 3.3            \\ \hline
+5    & 626       & (3,1)      & 2.65             & 3.62           \\ \hline
+6    & 684       & (1,2)      & 2.92             & 3.95           \\ \hline
+7    & 768       & (4,1)      & 3.16             & 4.43           \\ \hline
+8    & 1031      & (5,1)      & 3.65             & 5.95           \\ \hline
+9    & 1060      & (6,1)      & 4.15             & 6.12          
+\end{tabular}
+\caption{Comparativa entre las relaciones de frecuencias teóricas de los modos normales y las captadas experimentalmente}
+\label{relacionfreqmodoscentro}
+\end{table}
+
+Para los primeros modos, hay una diferencia sustancial pero no muy relevante. Sin embargo, esta diferencia tiende a aumentar a medida que aumenta la frecuencia del modo en cuestión\newline
+
+Repetimos el mismo análisis para los modos bajo golpeo descentrado.
+
+\begin{figure}[H]%
+\centering
+
+    \subfloat[\centering][Asociación con el modo (0,1)]{{\includegraphics[width=5cm]{mapa1dteorico.png} }}%
+     \subfloat[\centering][Asociación con el modo (1,1)]{{\includegraphics[width=5cm]{mapa2dteorico.png} }}%
+       \subfloat[\centering][Asociación con el modo (2,1)]{{\includegraphics[width=5cm]{mapa3dteorico.png} }}%
+   
+    \end{figure}
+    
+    \begin{figure}[H]%
+    \centering
+  
+    \subfloat[\centering][Asociación con el modo (0,2)]{{\includegraphics[width=5cm]{Mapa4dteorico.png} }}%
+      \subfloat[\centering][Asociación con el modo (4,1)]{{\includegraphics[width=5cm]{mapa5dteorico2.png} }}%
+    \subfloat[\centering][Asociación con el modo (2,2)]{{\includegraphics[width=5cm]{mapa6dteorico.png} }}%
+     
+    \end{figure}
+    
+     \begin{figure}[H]%
+    \centering
+    \subfloat[\centering][Asociación con el modo (5,1)]{{\includegraphics[width=5cm]{mapa7dteorico.png} }}%
+    \subfloat[\centering][Asociación con el modo (3,2)]{{\includegraphics[width=5cm]{mapa8dteorico.png} }}%
+    \subfloat[\centering][Asociación con el modo (6,1)]{{\includegraphics[width=5cm]{mapa9dteorico.png} }}%
+     \caption{Asociación de patrones experimentales descentrados con los modos teóricos}
+     
+    \end{figure}
+    
+En este caso, además, obtenemos una definición más pobre de los modos observados, siendo posible la asignación de un patrón a varios modos teóricos. \newline
+
+Observamos la aparición de modos normales, similares mayoritariamente a la situación anterior. Por el contrario, mientras que para el golpeo centrado no aparecía el modo (2,2), aquí es un modo fácil de distinguir, y viceversa para el modo (3,1). \newline
+
+Además de esto, podemos ver como el modo (1,1) muestra un desfase de 90º con respecto a su forma para el golpeo centrado. Esto es un indicio del fallo de una de las premisas de nuestro modelo teórico inicial, la perfecta curvatura circular de nuestro sistema.\newline
+
+Si nuestra membrana tiene una forma ligeramente elíptica, aparecerán dobletes espectrales asociados a los ejes mayor y menor de la elipse. Cuanto menos elíptica se la curvatura de la membrana, más próximo estará este doblete, por lo que para nuestra membrana, la cual podemos asumir que es muy poco elíptica, estos picos se superponen entre si, ganando protagonismo según las condiciones en las que estimulemos la membrana y captemos su respuesta \cite{fisicamusical}.
+
+ \begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c}
+Pico & Freq.(Hz) & Modo Asoc. & Ratio Freq Asoc. & Ratio Freq Exp \\ \hline
+1    & 162.9     & (0,1)      & 1                & 1              \\ \hline
+2    & 342       & (1,1)      & 1.54             & 2.01           \\ \hline
+3    & 467.1     & (2,1)      & 2.14             & 2.87           \\ \hline
+4    & 595.7     & (0,2)      & 2.3              & 3.65           \\ \hline
+5    & 727.7     & (4,1)      & 2.65             & 4.46           \\ \hline
+6    & 825       & (2,2)      & 2.92             & 5.06           \\ \hline
+7    & 854.6     & (5,1)      & 3.16             & 5.2            \\ \hline
+8    & 980.6     & (3,2)      & 3.65             & 6.02           \\ \hline
+9    & 1086      & (6,1)      & 4.15             & 6.66          
+\end{tabular}
+\caption{Comparativa entre las relaciones de frecuencias teóricas de los modos normales y las captadas experimentales}
+\label{relacionfreqmodosdescentro}
+\end{table}
+ 
+ Vemos una vez más la divergencia de la relación de frecuencias entre los modos normales a medida que aumenta la frecuencia. En este caso además observamos una dispersión en frecuencia de los modos normales comunes a ambas situaciones. 
+ 
+ \begin{table}[H]
+ \centering
+\begin{tabular}{c|c|c|c|c|c|c|c}
+Modo       & (0,1) & (1,1) & (2,1) & (0,2) & (4,1) & (5,1) & (6,1) \\ \hline
+$\Delta F$(Hz) & 10.1  & 1.7   & 30    & -18.8 & 40.3  & 176.4 & -26  
+\end{tabular}
+\caption{Diferencia de frecuencias entre los modos comunes observados en ambas situaciones}
+\label{diffrequmodos}
+\end{table}
+
+Esta diferencia de frecuencia entre ambas situaciones no muestra un patrón definido, pero podemos intentar atribuírsela a la rigidez despreciada de la membrana, la irregularidad de la distribución de la tensión sobre la membrana así como al fenómeno de carga de aire sobre la misma. \newline
+
+Si nuestra membrana tiene una rigidez no despreciable la velocidad de propagación de esta , aumentará para los modos de frecuencia elevada, haciendo que las relaciones reales de frecuencia entre los modos medidos diverjan de los teóricos de tal forma.\newline 
+
+Además, nuestro tambor tiene un número finito de tornillos tensadores, por lo que la tensión aplicada a la membrana varía ligeramente entre los puntos de aplicación y otras zonas de la membrana, así como ser ligeramente menor en el centro de esta. Este patrón irregular de tensiones sumado al desplazamiento en frecuencia de los modos normales causado por la carga del aire \cite{fisicamusical} , así como defectos o irregularidades en la membrana, pueden producir estos efectos no predichos por nuestro modelo teórico.
+
+%Comparar modos exp con modos teóricos y hacer imágenes con dibujos?
+%Diferencias por cámara resonante, carga de aire, y sobre todo desafinado.
+%mas trabajo con mas simulación o desarrollar una forma de afinar bien con estos datos, y volver a comparar.
+
+\subsection{Medida de la velocidad de la membrana}
+
+Debemos obtener $c$ para poder pasar nuestros ceros a frecuencias en un espectro. Bajo nuestra premisa de que la velocidad de la onda en la membrana es la misma para todas las frecuencias, podemos obtener su valor a partir de la relación entre la frecuencia de oscilación de un modo normal de la membrana con el cero de la función de Bessel correspondiente a ese modo. \newline
+
+\begin{equation}
+    f_{mn}= c\frac{\beta _{mn}}{2\pi R}
+\end{equation}\newline
+
+Entonces, si suponemos que la frecuencia fundamental de nuestros espectro,173 Hz, se corresponde con el modo (0,1), obtenemos $57.328$ m/s como velocidad de propagación de la membrana.
+\newline.
+
+%Para comprobar si esto se cumple para todos los picos que hemos captado, vamos a correlacionar los ceros de la función de Bessel con estos últimos.
+Como esto no tiene en cuenta el amortiguamiento de la membrana, vamos a relacionar los ceros de la función de Bessel con todos los picos que hemos captado.\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{correlacion_omega.png}
+    \caption{Correlación entre las frecuencias de los picos y los ceros de la función de Bessel}
+   
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l}
+$f_{exp}^2$(Hz) & $\beta_{mn}^2$ \\ \hline
+29929     & 5.78318809 \\ \hline
+117649    & 14.6819709 \\ \hline
+247108.41 & 26.3746133 \\ \hline
+325356.16 & 30.4712611 \\ \hline
+392627.56 & 40.7064671 \\ \hline
+467856    & 49.218461  \\ \hline
+589824    & 57.5829343 \\ \hline
+1062961   & 76.9389316 \\ \hline
+1123600   & 98.7262819
+
+
+\end{tabular}
+\caption{Datos de la correlación entre las frecuencias de los modos normales y el cero de la función de Bessel asociado}
+\end{table} 
+
+El ajuste lineal se hace a la siguiente expresión, que tiene en cuenta el amortiguamiento que sufren las frecuencias en su oscilación.\newline
+
+\begin{equation}
+    \omega_{mn, exp}^2= (\frac{c \beta _{mn}}{R})^2-\alpha^2
+\end{equation}\newline
+
+De lo que obtenemos un valor de $c = 89.8234\pm 0.002$ $\text{m/s}$ y $a= 1774 \pm 300$ $\text{s}^{-1}$.\newline
+
+\section{Conclusiones}
+
+Hemos construido un dispositivo experimental original para medir la forma y aparición de modos normales sobre la membrana de un tambor. Este dispositivo formado por un plotter más un generador de funciones y un sistema de captura de sonido, lo hemos coordinado en el entorno de programación VEE. Con este dispositivo medimos el sonido producido en distintos puntos de una membrana, previamente afinada mediante un método de precisión, al ser golpeada.\newline
+
+Los datos capturados en este dispositivo los hemos procesado numéricamente mediante el diseño de software en C, y gráficamente usando scripts en Gnuplot.
+\newline
+
+Mediante la observación de la aparición de modos normales en nuestro tambor junto con el estudio de su forma, hemos comprobado la validez del modelo de membrana bidimensional para su aplicación a sistemas y situaciones reales con sus limitaciones. \newline
+
+Para estudiar estos patrones nos hemos basado en una solución analítica con el fin de estimar la proximidad a la idealidad de nuestro sistema de estudio.\newline
+
+Si bien los patrones de los modos normales grabados experimentalmente tienen un alto grado de similitud con los descritos por la solución de la ecuación de onda en condiciones ideales, nuestro sistema de estudio, consistente de un tambor real, presenta fenómenos que solo son explicables mediante un estudio más profundo de la naturaleza de este.\newline
+
+El fenómeno  más llamativo es la aparición de modos normales distintos a los modos (0,n) en condiciones iniciales de simetría que en teoría solo favorecen la aparición de estos últimos.\newline
+
+Además, los ratios de frecuencia a los que deberían aparecer los modos normales según las soluciones de la ecuación de onda tienden a divergir, lo que sugiere que la hipótesis de que la velocidad del sonido $c$ en la membrana no es constante para todas las frecuencias o para todas las direcciones en esta. Esto pone de manifiesto la posible anisotropía de nuestra membrana, que si bien es posible que se deba a la estructura del material en el que se ha fabricado, es más probable que esté causada por defectos o daños en el parche.\newline
+
+Podemos concluir que, aunque el modelo de la membrana circular bidimensional nos da información muy relevante sobre la naturaleza y forma del espectro producido por nuestro tambor, al ser este un sistema real más alejado de la idealidad matemática, aparecen una serie de fenómenos no tenidos en cuenta por la ecuación de onda, que afectan profundamente al comportamiento de nuestro sistema. Si bien esto da cuenta de lo limitado que es este modelo a la hora de aplicarse en un sistema real alejado del entorno de un laboratorio, también permite comprender y estudiar con más facilidad la aparición de fenómenos más complejos sobre la membrana, como es la distribución irregular de tensión, la carga del aire sobre la vibración del parche, la dependencia de la velocidad de propagación del sonido en la membrana con dependencia de la frecuencia o la influencia de la curvatura del parche en el espectro.
+
+
+
+
+
+%La ecuación de onda de la membrana circular produce soluciones elegantes y fáciles de estudiar dadas unas condiciones de idealidad adecuadas. Sin embargo, al trasladar este modelo a un sistema real nos encontramos con el problema de asegurar que estas condiciones se cumplen a la hora de medir.\newline
+
+%Hemos visto como la no uniformidad de la tensión de la membrana y la elipticidad esta misma afectan a la aparición de modos normales y a su forma. También hemos visto como fenómenos físicos no descritos por nuestro modelo, como la carga de aire y la rigidez de la membrana, afectan a la frecuencia de estos modos.\newline
+
+ \subsection{Posibles vías para continuar el estudio}
+
+Para ahondar más en este estudio podríamos realizar las siguientes tareas:
+
+\begin{itemize}
+
+\item Optimizar el dispositivo experimental para el análisis espectral con mayor precisión. Podemos reducir el ruido introducido por el dispositivo en el sistema corrigiendo el ruido introducido por el micrófono y la tarjeta de sonido en un tratamiento de los datos previo a su análisis espectral. 
+
+\item Estudiar la aparición de los modos normales en la membrana cambiando características del tambor, como es el tamaño, el número de tornillos de afinación, y distintas distribuciones de tensión sobre la membrana.
+
+\item Mejorar el modelo teórico de la membrana para adecuar los fenómenos observados experimentalmente. Este nuevo modelo debería tener en cuenta la rigidez de la membrana y la curvatura elíptica que esta describe. Posiblemente la nueva ecuación de onda no sea resoluble por métodos analíticos, así que habría que ahondar en métodos numéricos de resolución.
+
+\item Reanalizar los datos con el modelo mejorado. Los nuevos datos y el nuevo modelo permitiría estudiar la aparición de fenómenos más sutiles como la influencia de los modos de vibración, de la caja acoplada al parche, la forma del objeto de impacto, el material y amortiguamiento de la membrana dependiente del material que la constituye, entre otros.
+
+\end{itemize}
+
+\newpage
+
+
+\section{Apéndices}
+\subsection{Método de afinación del parche}
+
+ Para afinar el parche debemos asegurarnos que todos los tornillos tensadores aplican la misma tensión sobre la membrana, de tal forma que la tensión se distribuya por esta de la lo más uniformemente posible.\newline
+ 
+ El método tradicional, consiste en golpear una región de la membrana cercana a uno de los tornillos y cambiar su tensión hasta obtener el sonido deseado. \newline
+ 
+ Después, buscamos un sonido similar siguiendo un patrón de estrella y utilizando este sonido como referencia, apretamos el resto de tornillos del tom hasta obtener este sonido. \newline
+ 
+ Este método produce un resultado satisfactorio al oído, pero para un estudio científico en más profundidad necesitamos un método más preciso que nos garantice la uniformidad de la tensión aplicada a la membrana. \newline
+ 
+ Para ello, hemos utilizado un método similar al anterior pero basado en la precisión de medida de desplazamientos de un catetómetro.\newline
+ 
+ Apoyando una varilla nivelada y perpendicular a la región de la membrana cercana al tornillo, mediremos la altura a la que nivelamos el catetómetro con una marca dibujada sobre la varilla. Después, apoyaremos en la varilla un peso calibrado y tras hundirse la membrana volveremos a alinear el catetómetro.\newline
+ 
+ Habiendo fijado la altura de las marcas del primer tornillo, apoyamos la varilla en otra región cercana a otro tornillo y modificamos la tensión de este para que se alinee con las marcas del tornillo anterior con y sin peso. Repetimos este proceso para cada tornillo. \newline
+ 
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width = \linewidth]{catetometro.jpeg}
+     \caption{Dispositivo de afinado con catetómetro de la membrana}
+     \label{catetómetro}
+ \end{figure}
+ 
+Mediante este método obtenemos una tensión igual en todos los tornillos con un buen control sobre la precisión.
+
+Habiendo ajustado todos los tornillos a la misma altura en el catetómetro medimos una diferencia de altura de hundimiento del parche en el centro de este, con el fin de medir la tensión sobre la membrana $\Delta H = 0.13$cm. \newline
+
+Podemos relacionar la profundidad de hundimiento con la tensión de la membrana mediante \equationref{tension}\newline
+
+\begin{equation}
+    Mg=2\pi T\frac{\Delta H}{R}
+    \label{tension}
+\end{equation}
+
+Donde M es la masa que hunde la membrana, g es la constante de aceleración de la gravedad, T es la tensión, $\Delta H$ es el hundimiento y R es el radio de la membrana.
+\newline
+
+De esta forma, obtenemos el siguiente valor de la tensión de la membrana.
+
+\begin{equation}
+    T= 152.52 \pm 0.18 N
+\end{equation}
+
+Con este valor de tensión podemos obtener un valor teórico de la frecuencia asociada al fundamental de nuestra membrana \cite{fisicamusical}
+
+\begin{equation}
+    F_{(0,1)}=\frac{2.408}{2\pi R}\sqrt{T/\sigma} \qquad F_{(0,1)}= 166.67 Hz
+\end{equation}
+
+Donde R es el radio de la membrana, y $\sigma$ es la masa por unidad de área de nuestra membrana. \newline
+
+\subsection{Especificaciones técnicas del equipo de grabación}
+
+\begin{itemize}
+    \item Micrófono : Labtec LVA7313
+    \item Plotter: Roland DXY-1150
+    \item Generador de Funciones: Agilent 33120a
+    \item Transductor: Motor de disco duro HDD rescatado
+    \item Tarjeta de sonido: Trust SC-5500P USB 5.1
+ \end{itemize}
+
+\subsection{Especificaciones técnicas de la membrana y el tom}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l}
+Modelo                  & Remo Emperor X \\ \hline
+Diámetro                & 0.254 m        \\ \hline
+Grosor                  & 1.1 mm         \\ \hline
+Masa por unidad de área & 0.05 kg/m       \\ \hline
+Tensión                 & 70 N          
+\end{tabular}
+\caption{Especificaciones de la membrana de estudio}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l}
+Modelo        & Mapex Mars V     \\ \hline
+Diámetro      & 0.254 m          \\ \hline
+Profundidad   & 0.177 m          \\ \hline
+Grosor        & 72 mm            \\ \hline
+Nº Capas      & 6 $\times$1.2 mm \\ \hline
+Madera        & Abedul           \\ \hline
+Nº Tensadores & 6               
+\end{tabular}
+\caption{Especificaciones del tom}
+\end{table}
+
+\subsection{Evaluación de cálculos del modelo teórico}
+    
+Una vez tenemos una solución para la grabación de nuestros datos experimentales, necesitamos una forma efectiva de compararlos con nuestro modelo teórico. Para ello vamos a obtener una muestra del espectro que nuestra membrana ideal generaría y compararlo con los espectros de nuestra grabación.
+\newline
+
+Vamos a tomar las soluciones de nuestra ecuación de onda y representar los espectros que podemos obtener de ella para nuestras condiciones iniciales. En nuestro caso hemos estimulado la membrana en el punto central, lo que produce la situación más simétrica predicha por el modelo, en la que solo se estimulan los modos circulares $\omega_{0n}$.
+\newline
+
+Para construir nuestro espectro necesitamos identificar estos modos y su amplitud relativa. Dado que los modos se pueden evaluar mediante la relación entre las frecuencias de los modos normales y los ceros de las funciones de Bessel, necesitamos una lista de los n primeros ceros correspondientes con las frecuencias de los n primeros picos que aparecerán en nuestro espectro. También necesitamos la velocidad de propagación de la onda en la membrana, así como la amplitud de estos picos dados por los coeficientes $a_{mn}$, $b_{mn}$ y las funciones de Bessel evaluadas en coordenadas, especificas de la membrana. \newline
+
+Visto esto, vamos a necesitar un programa que nos calcule integrales de forma numérica, ceros de la función de Bessel de primera especie, y alguna forma de obtener $c$.\newline
+
+Primeramente, los ceros de Bessel podemos calcularlos evaluando la función de Bessel de orden 0 en sus soluciones. En primera instancia programamos esto de tal manera que primero se calculaba la forma funcional de la función de Bessel de orden cero mediante su desarrollo en serie, y luego, mediante el algoritmo Newton-Raphson, se obtenía el cero correspondiente.\newline
+
+Este algoritmo resultó en un coste computacional enorme, por lo que más tarde implementamos una versión mucho más sencilla haciendo uso de la librería GSL de GNU. Esta librería proporciona el repositorio gsl\_sf\_bessel.h y dentro de este la función bessel\_zero\_Jnu.c que devuelve el cero enésimo de una función de Bessel de primera especie de orden m. De está forma el computo de los ceros de Bessel se vuelve casi trivial. \newline
+
+
+
+\subsection{Cálculo del espectro teórico}
+Vamos a obtener un espectro teórico para nuestro sistema aplicando las característica de este al modelo de la ecuación de onda. Para ello vamos a calcular cada pico espectral mediante la evaluación de los modos normales con los parámetros de nuestro sistema. Es decir, vamos a representar los modos normales de nuestra membrana en un caso teórico ideal perfectamente definido por nuestra ecuación de onda \equationref{solucion_ecuacion}
+\newline
+
+ Nuestro programa debe evaluar la función de Bessel en las coordenadas de nuestra membrana ideal y calcular el coeficiente $a_{mn}$ mediante la evaluación de su integral. Este programa utiliza la función bessel\_Jn para evaluar la función de Bessel en unas coordenadas dadas, y calcula la integral de forma numérica haciendo uso del algoritmo Simpson 3/8. Hay que tener en cuenta que en estas condiciones de simetría, la parte angular de la integral se ha simplificado considerablemente, facilitando el cálculo de esta. En el programa también debemos de introducir una serie de valores numéricos dados por nuestro experimento, siendo estos $\sigma = 0.001 m^2$ y $R$. La amplitud máxima, A, en la condición inicial será relevante para el orden de magnitud de los picos, pero la información relevante se encuentra en la relación entre las amplitudes de estos. \footnote{ Ver programas en C en el apéndice sobre el código empleado.}
+\newline
+
+Con estos programas somos capaces de reconstruir el espectro teórico en nuestras condiciones de máxima simetría.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Espectro_teórico_sim.png}
+    \caption{Espectro teórico para una membrana circular golpeada en su centro}
+    
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l}
+Freq(Hz) & Amp (u.a) \\ \hline
+170.05   & 22.944157 \\ \hline
+390.34   & 0.273998  \\ \hline
+611.93   & 0.292231  \\ \hline
+833.81   & 0.01286   \\ \hline
+1055.80  & 0.019226  \\ \hline
+1277.85  & 0.000625 
+\end{tabular}
+\caption{Lista de frecuencias relevantes en el espectro con golpeo centrado}
+\end{table}
+
+Como podemos, ver el espectro simétrico difiere puntualmente con nuestros datos experimentales lo que nos demuestra que hemos grabado en condiciones de no idealidad, y muchos de los picos en nuestros datos experimentales se deberán a modos no circulares. Puesto que suponer que la curvatura, la flexibilidad o la estructura de nuestra membrana se alejan de la idealidad implica cambiar por completo nuestro modelo, vamos a rehacer la simulación suponiendo que el golpeo de estimulación ha sido descentrado ligeramente en r. \newline
+
+Teniendo esto en cuenta, debemos adaptar nuestros programas para una condición inicial descentrada. Ahora, deberemos calcular los ceros enésimos de las funciones de Bessel de orden m y calcular las integrales de los coeficientes $a_{mn}$ y $b_{mn}$ sin simplificar. Esto produce espectros de la siguiente forma.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Espectro_teórico_asim.png}
+    \caption{Espectro teórico para unas condiciones en las que la estimulación inicial de la membrana se hace ligeramente alejado del centro}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l}
+Freq(Hz) & Amp (u.a) \\ \hline
+170.05   & 0.145252  \\ \hline
+390.34   & 0.118698  \\ \hline
+611.93   & 0.079064  \\ \hline
+833.81   & 0.035617  \\ \hline
+1055.80  & 0.000003  \\ 
+\end{tabular}
+\caption{Lista de frecuencias relevantes en el espectro teórico con golpeo descentrado}
+\end{table}
+
+Aquí ya podemos ver como los espectros muestran picos adecuados a los de nuestros datos experimentales en lo que respecta a amplitudes. El peso del fundamental se ha repartido en los modos consecutivos de una forma más realista. Sin embargo, aún bajo estas nuevas condiciones, no somos capaces de obtener picos con amplitudes relevantes en las frecuencias de nuestro espectro, por lo que ya podemos confirmar que en nuestro sistema experimental no se cumplen todas las aproximaciones que hemos hecho en nuestro modelo. \newline
+
+\subsection{Programa empleado en VEE para la adquisición de datos}
+
+\begin{figure}[H]
+\centering
+    \centering \includegraphics[width=14cm]{movimiento_micro.png} 
+    \caption{Bloque de movimiento del micrófono}
+    \end{figure}
+    
+    
+    \begin{figure}[H]
+    \centering
+   \includegraphics[width=14cm]{Llamada_microfono.png}
+    \caption{Bloque de encendido del micrófono}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering
+  \includegraphics[width=14cm]{escritura_archivos.png}
+   \caption{Bloque de asignación de datos a archivos}
+    \label{respuesta_barrido}
+  \end{figure} 
+  
+  \subsection{Código en bloques I/O}
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics{genfun.png}
+    \caption{Bloques de movimiento en VEE}
+    
+\end{figure} 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm]{movimientovee.png}
+    \caption{Bloques de movimiento en VEE}
+    \label{movvee}
+\end{figure}
+
+\subsection{Frecuencias teóricas de los modos normales con los ceros de la función de Bessel}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|l|lll|l|l}
+modo & Freq(Hz)   & $\beta _{mn}$ &  & modo & Freq(Hz)   & $\beta _{mn}$ \\ \cline{1-3} \cline{5-7} 
+0,1  & 170.051056 & 2.404826      &  & 9,1  & 944.314816 & 13.3543       \\ \cline{1-3} \cline{5-7} 
+1,1  & 270.949188 & 3.831706      &  & 6,2  & 960.931526 & 13.58929      \\ \cline{1-3} \cline{5-7} 
+2,1  & 363.152239 & 5.135622      &  & 4,3  & 1016.31681 & 14.372537     \\ \cline{1-3} \cline{5-7} 
+0,2  & 390.338051 & 5.520078      &  & 10,1 & 1023.59765 & 14.475501     \\ \cline{1-3} \cline{5-7} 
+3,1  & 451.156669 & 6.380162      &  & 2,4  & 1046.25751 & 14.795952     \\ \cline{1-3} \cline{5-7} 
+1,2  & 496.089106 & 7.015587      &  & 7,2  & 1048.04774 & 14.821269     \\ \cline{1-3} \cline{5-7} 
+4,1  & 536.589995 & 7.588342      &  & 0,5  & 1055.80128 & 14.930918     \\ \cline{1-3} \cline{5-7} 
+2,2  & 595.203658 & 8.417244      &  & 11,1 & 1102.39582 & 15.589848     \\ \cline{1-3} \cline{6-7} 
+0,3  & 611.926013 & 8.653728      &  & 5,3  & 1110.19723 & 15.700174     \\ \cline{1-3} \cline{5-7} 
+5,1  & 620.252825 & 8.771484      &  & 8,2  & 1134.06975 & 16.037774     \\ \cline{1-3} \cline{5-7} 
+3,2  & 690.225518 & 9.761023      &  & 3,4  & 1147.20048 & 16.223466     \\ \cline{1-3} \cline{5-7} 
+6,1  & 702.606343 & 9.93611       &  & 1,5  & 1164.67804 & 16.47063      \\ \cline{1-3} \cline{5-7} 
+1,3  & 719.3905   & 10.173468     &  & 12,1 & 1180.7736  & 16.69825      \\ \cline{1-3} \cline{5-7} 
+4,2  & 782.412305 & 11.064709     &  & 6,3  & 1202.38119 & 17.00382      \\ \cline{1-3} \cline{5-7} 
+7,1  & 783.944006 & 11.08637      &  & 9,2  & 1219.16832 & 17.24122      \\ \cline{1-3} \cline{5-7} 
+2,3  & 821.667029 & 11.619841     &  & 4,4  & 1245.66751 & 17.615966     \\ \cline{1-3} \cline{5-7} 
+0,4  & 833.807856 & 11.791534     &  & 3,5  & 1269.98219 & 17.959819     \\ \cline{1-3} \cline{5-7} 
+8,1  & 864.46579  & 12.225092     &  & 0,6  & 1277.84859 & 18.071064     \\ \cline{1-3} \cline{5-7} 
+5,2  & 872.492498 & 12.338604     &  & 7,3  & 1293.15917 & 18.287583     \\ \cline{1-3} \cline{5-7} 
+3,3  & 920.336306 & 13.015201     &  & 10,2 & 1303.47477 & 18.433464     \\ \cline{1-3} \cline{5-7} 
+1,4  & 942.15045  & 13.323692     &  & 5,4  & 1342.13113 & 18.980134    
+\end{tabular}
+\caption{Modos normales teóricos y sus frecuencias asociadas para una membrana de características similares a la estudiada}
+\label{frecuencias_teoricas}
+\end{table}
+
+\subsection{Código en C empleado}
+
+\subsubsection{Simulación de amplitud}
+
+Este primer programa calcula la vibración de la membrana en una condición de simetría máxima. Esta vibración teórica se podría meter en un motor de sonido como Csound para imitar el sonido de una membrana como la que hemos modelizado.
+
+\begin{lstlisting}
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <gsl/gsl_sf_bessel.h>
+#define M_PI 3.14159265358979323846
+
+double facoeff(int n, double r, double R,double A, double sigma) {  
+
+/*funcion que evalua la forma integral del coeficiente de a_0			teniendo en cuenta que en estas condiciones de simetria la parte angular se simplifica a 2pi*/
+
+	double func;
+	double alfa;
+	alfa = gsl_sf_bessel_zero_J0(n);
+	func = (A / (2 * M_PI*sigma)*r*exp((-pow(r, 2))) / 2 * sigma)*gsl_sf_bessel_j0(alfa*r / R);
+	return  func;
+}
+			/*calculo propiamente dicho de el coeficiente a como una integral numerica con el metodo de simpson 3/8*/
+			
+double acoeff(int n, double r, double R,double A, double sigma) {
+
+	int prec = 15000, i;
+	double inf = 0, sup = R, h, sum = 0, integralcoeff;
+	double a;
+	double alfa_prima;
+	alfa_prima = gsl_sf_bessel_zero_J0(n + 1, R);
+	h = fabs(sup - inf) / prec;
+
+	for (i = 1; i < prec; i++) {
+		r = inf + i * h;
+		sum = sum + facoeff(n, r, R,A,sigma);
+	}
+
+	integralcoeff = ((h / 2)*(facoeff(n, inf, R,A,sigma) + facoeff(n, sup, R,A,sigma) + 2 * sum));
+
+	a = integralcoeff * (4 * M_PI) / (M_PI*pow(R, 2)*pow(alfa_prima, 2));
+	return a;
+
+}
+\end{lstlisting}
+
+Además de esto, hemos calculado la amplitud de vibración para condiciones de simetría máxima.
+
+\begin{lstlisting}
+main() {
+	//DECLARACION DE VARIABLES 
+
+	double u;						// amplitud de la vibracion
+	double r, theta, t=0;			//variables de la amplitud
+	double a,c;						// a=constante de amortiguacion, c=velocidad de la onda en la membrana
+	double  R;						// Radio de la membrana
+	double A=0.5E7, sigma=0.0001;	//constantes del estado inicial,A se ha adecuado a la amp max del los datos exp
+	
+//creacion de archivos txt
+
+	char file_fix[128] = "CLIPS_sim/PUNTO_sim";		
+	char file_end[128] = ".txt";
+	char file_name[128];
+	int k;
+	int aux = 0;
+	int n;
+	double sum,alfa;
+	FILE*datasim;
+	
+//bucles de evaluacion de la solucion
+
+	for (k = 1; k <=20; k++) {
+		snprintf(file_name, sizeof(file_name), "%s%d%s", file_fix, k, file_end);
+		datasim = fopen(file_name, "w+");
+		
+		r = 0.0127*k, R = 0.254, a = 1665.71, c =5.058 ;	//valores de a y c sacados de la correlacion w y alfa
+		
+		aux = 0;
+		t = 1;
+		for (t = 1; t < 50000; t++) {
+			sum = 0;
+			for (n = 1; n < 100; n++)			{
+				
+				alfa = gsl_sf_bessel_zero_J0(n);
+				sum = sum + gsl_sf_bessel_J0(alfa*r/ R)*acoeff(n, r, R,A,sigma)*cos(sqrt((alfa*c / R)*(alfa*c / R)) - a * a*t/1E7 )*exp(-a * t/1E7 );
+				
+			}			u = sum / 2;
+			if ( u>=-1 && u<=1 ) aux = aux + 1;
+			fprintf(datasim, "%lf \n", u);
+		
+			if (aux == 100) printf("salto\n"),	break;
+			
+		}		fclose(datasim);}}
+		
+\end{lstlisting}
+
+\subsubsection{Cálculo de modos normales y su amplitud en condiciones de simetría máxima}
+
+También hemos programado una versión mas eficiente de este último para comparar con nuestros datos experimentales.Este consiste en calcular por separado los picos espectrales como ceros de las funciones de Bessel y su amplitud como la expresión dada por la solución de nuestra ecuación de onda. 
+
+\begin{lstlisting}
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <gsl/gsl_sf_bessel.h>
+#define M_PI 3.14159265358979323846
+
+//INTEGRAL A
+double facoeff(int n, int m, double r, double theta) {
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	double funcion = r * gsl_sf_bessel_Jn(m, alfa*r / 0.127)*exp(-(r*r) / 2);
+	return funcion;
+}
+double integralaR(int n, int m, double r, double theta) {
+
+	int prec = 15000, i;
+	double inf = 0, sup = 0.127, h, sum = 0, integralcoeff;
+	h = fabs(sup - inf) / prec;
+
+	for (i = 1; i < prec; i++) {
+		r = inf + i * h;
+		sum = sum + facoeff(n, m, r, theta);
+	}
+
+	integralcoeff = ((h / 2)*(facoeff(n, m, inf, theta) + facoeff(n, m, sup, theta) + 2 * sum));
+
+
+	return integralcoeff;
+
+}
+
+//FUNCION DE EVALUACION DE COEFICIENTES CON INTEGRALES
+double acoeff(int n, int m, double r, double theta) {
+
+	double integrala;
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	integrala = 2 / (M_PI*0.016129*pow(gsl_sf_bessel_Jn(m + 1, alfa), 2))*integralaR(n, m, r, theta);
+	return integrala;
+}
+
+
+//EVALUACION DE MODOS NORMALES Y AMPLITUD
+
+main() {
+	double r, theta, R = 0.127, c = 49.76;
+	int n, m=0;
+	double a, b, alfa, freq, amplitud;
+	int i, j, k, counter = 1;
+	char filename[128];
+	FILE*datasim;
+
+	for (i = 1; i < 5; i++) {
+		for (j = 0; j < 5; j++) {
+
+			r = i * 0.0127; theta = j * 2 * M_PI / 10;
+
+			snprintf(filename, sizeof(filename), "punto%dsimetrico.txt", counter);
+			datasim = fopen(filename, "w+");
+			
+				for (n = 1; n < 6; n++) {
+				
+					alfa = gsl_sf_bessel_zero_Jnu(m, n);
+					freq = c * alfa / (2 * M_PI* R);
+					a = acoeff(n, m, r, theta);
+					amplitud = gsl_sf_bessel_Jnu(m, alfa*r / (R*R))*a;
+					
+					fprintf(datasim, "%lf \ %lf \n", amplitud, freq);
+				}
+			counter = counter + 1;		}	}
+
+}
+\end{lstlisting}
+
+\subsubsection{Cálculo de modos normales y amplitudes con golpeo desplazado}
+
+ Finalmente se puede hacer una versión mas completa del programa suponiendo unas condiciones iniciales de desplazamiento en el golpeo. Este programa ha supuesto un desplazamiento del golpeo de 0.0127 m respecto al centro, pero se puede modificar para tener en cuenta cualquier desplazamiento arbitrario.
+ 
+ \begin{lstlisting}
+ #define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <gsl/gsl_sf_bessel.h>
+#define M_PI 3.14159265358979323846
+
+//INTEGRAL BTHETA
+
+double funcionb(int m, double r, double theta) {
+	double funcion = exp(-0.003175*r*cos(theta))*sin(m*theta);
+	return funcion;
+}
+double integral_b_theta(int m, double r, double theta){
+
+	int prec = 15000, i;
+	double inf = 0, sup = 2 * M_PI, h, sum = 0, integral;
+	h = fabs(sup - inf) / prec;
+
+	for (i = 1; i < prec; i++) {
+		theta = inf + i * h;
+		sum = sum + funcionb(m, r, theta);
+	}
+	integral = ((h / 2)*(funcionb(m, inf, theta) + funcionb(m, sup, theta) + 2 * sum));
+	return integral;
+}
+
+//INTEGRAL A THETA
+
+double funciona(int m, double r, double theta) {
+	double funcion = exp(-0.003175*r*cos(theta))*cos(m*theta);
+	return funcion;
+}
+
+double integral_a_theta(int m, double r, double theta){
+	int prec = 15000, i;
+	double inf = 0, sup = 2*M_PI, h, sum = 0, integral;
+	h = fabs(sup - inf) / prec;
+
+	for (i = 1; i < prec; i++) {
+		theta = inf + i * h;
+		sum = sum + funciona( m, r, theta);
+	}
+	integral= ((h / 2)*(funciona( m, inf, theta) + funciona( m, sup, theta) + 2 * sum));
+	return integral;
+}
+
+//INTEGRAL A
+
+double facoeff(int n,int m, double r,double theta) {
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	double funcion = r * gsl_sf_bessel_Jn(m, alfa*r/0.127)*exp(-(r*r)/2)*integral_a_theta(m,r,theta);
+	return funcion;
+}
+double integralaR(int n,int m, double r,double theta){
+	int prec = 15000, i;
+
+	double inf = 0, sup = 0.127, h, sum = 0, integralcoeff;
+	h = fabs(sup - inf) / prec;
+	
+	for (i = 1; i < prec; i++) {
+		r = inf + i * h;
+		sum = sum + facoeff(n, m, r,theta);
+	}
+	
+	integralcoeff = ((h / 2)*(facoeff(n, m ,inf,theta) + facoeff(n, m,sup,theta) + 2 * sum));
+
+	return integralcoeff;
+
+}
+
+//INTEGRAL B
+
+double fbcoeff(int n, int m, double r, double theta) {
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	double funcion = r * gsl_sf_bessel_Jn(m, alfa*r / 0.127)*exp(-(r*r) / 2)*integral_b_theta(m, r, theta);
+	return funcion;
+}
+
+double integralbR(int n, int m, double r,double theta) {
+
+	int prec = 15000, i;
+	double inf = 0, sup = 0.127, h, sum = 0, integralcoeff;
+	h = fabs(sup - inf) / prec;
+
+	for (i = 1; i < prec; i++) {
+		r = inf + i * h;
+		sum = sum + fbcoeff(n, m,r,theta );
+	}
+	integralcoeff = ((h / 2)*(fbcoeff(n, m, inf,theta) + fbcoeff(n, m,sup, theta) + 2 * sum));
+	return integralcoeff;
+}
+
+//FUNCION DE EVALUACION DE COEFICIENTES CON INTEGRALES
+
+double acoeff(int n, int m, double r, double theta) {
+	double integrala;
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	integrala = 1 / (M_PI*M_PI*0.016129*pow(gsl_sf_bessel_Jn(m + 1, alfa), 2))*integralaR(n,m,r,theta);
+	return integrala;
+}
+ 
+double bcoeff(int n, int m, double r, double theta) {
+	double integralb;
+	double alfa = gsl_sf_bessel_zero_Jnu(m, n);
+	integralb = 1 / (M_PI*M_PI*0.016129*pow(gsl_sf_bessel_Jn(m + 1, alfa), 2))*integralbR(n,m,r,theta);
+	return integralb;
+}
+
+//EVALUACION DE MODOS NORMALES Y AMPLITUD
+
+main() {
+	double r, theta,R=0.127,c=49.76;
+	int n, m;
+	double a, b,alfa,freq,amplitud;
+	int i, j, k, counter=1;
+	char filename[128];
+	FILE*datasim;
+
+	for (i = 1; i < 5; i++) {
+		for (j = 0; j < 5; j++) {
+
+			r = i * 0.0127; theta = j * 2 * M_PI / 10;
+
+			snprintf(filename, sizeof(filename), "punto%d.txt", counter);
+			datasim = fopen(filename, "w+");
+
+			for (m = 0; m < 5; m++) {
+				for (n = 1; n < 6; n++) {
+
+					alfa = gsl_sf_bessel_zero_Jnu(m, n);
+					freq = c * alfa /(2*M_PI* R);
+					a = acoeff(n, m, r, theta);
+					b = bcoeff(n, m, r, theta);
+					amplitud = gsl_sf_bessel_Jnu(m,alfa*r / (R*R))*(a*cos(m*theta) + b*sin(m*theta));
+
+					printf("%lf \n",amplitud);
+					fprintf(datasim, "%lf \ %lf \n", amplitud, freq);
+				}
+			}counter = counter + 1;		}	}
+}
+ \end{lstlisting}
+
+\subsubsection{Programa de tratamiento de datos en C}
+
+El siguiente programa transvasa los datos de los archivos txt producidos por el programa en VEE a otros archivos txt con un etiquetado en frecuencia y tiempo adecuado para su representación.
+Este programa puede etiquetar datos en función del tiempo y con escala logarítmica.
+
+\begin{lstlisting}
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<math.h>
+double a[50000], b[50000], c[50000]; //variables globales para tener suficiente memoria
+
+main() {
+	FILE*dataread;
+	FILE*datawrite;
+	FILE*datawriteframe;
+	int n,counter;
+	char file_header1[128] = "CLIPS_FFT_descentrados/PUNTO_FFT";
+	char file_header2[128] = "CLIPS_FFT_etiquetas/PUNTO_FFT";
+	
+	char file_name[128];
+	char file_name_prima[128];
+	char file_name_frame[128];
+	int i, j,k;
+
+	for (n = 1; n <= 300; n++) {  //CAMBIAR OTRA VEZ N
+
+		snprintf(file_name, sizeof(file_name), "%s%d.txt", file_header1, n);
+		snprintf(file_name_prima, sizeof(file_name_prima), "%s%d.txt", file_header2, n);
+
+		//snprintf(file_name_frame, sizeof(file_name_prima), "%s%d_frame%s", file_header2, n, file_end);
+
+		dataread = fopen(file_name, "r+");
+		datawrite = fopen(file_name_prima, "w+");
+
+		//datawriteframe = fopen(file_name_frame, "w+");
+		counter = 0;
+
+		for (i = 0; i < 8750; i++) {
+			fscanf(dataread, "%lf", &b[i]);
+			//printf("%lf", b[i]);
+			//b[i] = log(b[i]);
+			a[i] = 0.857142857 * i; 
+			// dF = Frecuencia de escaneo / tamaño de la variable 
+
+			// if (counter == 2501) counter = 0;
+			
+		}
+		for (j = 0; j < 8750; j++) {
+			fprintf(datawrite, "%lf \ %lf \n", a[j], b[j]);
+			printf("%lf \ %lf \n", a[j], b[j]);
+		}
+
+		/*for (k= 0; k < 2500; k++) {
+			fprintf(datawriteframe, "%lf \%lf \n", a[k], b[k]);
+		}*/
+		fclose(dataread);
+		fclose(datawrite);
+		fclose(datawrite);
+	}
+
+}
+\end{lstlisting}
+
+
+Para limpiar la información obtenida de los picos, también hemos hecho un programa que nos promedia los espectros de varias muestras.
+\newline
+\begin{lstlisting}
+
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include<math.h>
+double a[8750], b[8750],temp[8750];
+
+main() {
+
+	int i,j,k;
+
+	for (i = 1; i <= 300; i++) {
+		for (j = 1; j <= 10; j++)
+		{			
+			char fileString[128];
+			
+			snprintf(fileString, sizeof(fileString), "CLIPS_CENTRADOS/CLIPS_FFT%d/PUNTO_FFT%d.txt", j,i);
+			FILE *dataIn;
+			dataIn= fopen(fileString, "r+");
+			
+
+			for (k = 0; k < 8750; k++)
+			{
+				fscanf(dataIn, " %lf", &b[k]);
+				temp[k] = temp[k]+ b[k];
+				a[k] = 0.857142857*k;
+				printf("%lf \ %lf \n", a[k], b[k]);
+			}
+			
+			fclose(dataIn);
+		}
+
+		char streamString[256];
+		snprintf(streamString, sizeof(streamString), "CLIPS_FFT_average_centrados/PUNTO_FFT%d.txt", i);
+
+		FILE*dataOut = fopen(streamString, "w+");
+		for (k = 0; k < 8750; k++) {
+			temp[k] = temp[k] / 10;
+			fprintf(dataOut, "%lf \ %lf \n", a[k], temp[k]);
+		}
+	
+	}
+	
+	
+	
+}
+
+\end{lstlisting}
+
+En adición a esto, para dibujar los mapas de los modos normales procesamos los picos de frecuencia seleccionado de cada archivo y le asignamos unas coordenadas polares en el parche. 
+
+\begin{lstlisting}
+#define _CRT_SECURE_NO_DEPRECATE
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+#define M_PI 3.14159265358979323846
+
+
+double a[8750], b[8750]; //variables temporales donde escanear los datos antes de pasarlos a los mapas
+double x[3000],y[3000], amplitud[3000];
+
+main() {
+	int n, i, j;
+
+	//int peak; // variable de numero de archivo a abrir
+	
+	char file_name[128];
+	char map_name[128];
+	double r, theta;
+	double Amplitud;
+		
+	FILE*dataread;
+	FILE*datawrite;	
+	
+	for (n = 1; n <= 9; n++) {
+
+		//Bucle que genera un archivo con dialogo para buscar file
+		
+		int peak;
+		printf("Introduce el pico a escanear \n ");
+		scanf("%d", &peak);
+		printf("procesando \n");
+
+		//snprintf(map_name, sizeof(map_name), "HEATMAP_centrado/Mapa%d.txt", peak[n]);
+		snprintf(map_name, sizeof(map_name), "HEATMAP_descentrado/Mapa%d.txt", n);
+
+		datawrite = fopen(map_name, "w+");
+		int counter = 0, aux = 0, aux1 = 0;
+
+		for (i = 1; i < 300; i++) {
+			//snprintf(file_name, sizeof(file_name), "CLIPS_FFT_average_centrados/PUNTO_FFT%d.txt", i);
+			snprintf(file_name, sizeof(file_name), "CLIPS_FFT_average_descentrados/PUNTO_FFT%d.txt", i);
+			
+			dataread = fopen(file_name, "r+");			
+
+			for (j = 0; j < 8750; j++) {
+				fscanf(dataread, "%lf \ %lf ", &a[j], &b[j]);
+			}
+
+			amplitud[i - 1] = b[peak - 1];
+			
+			r = 0.127 - aux * 0.0127;
+			theta = aux1 * 2 * M_PI / 30;
+
+			x[i - 1] = r * cos(theta);
+			y[i - 1] = r * sin(theta);
+
+			aux1 = aux1 + 1;
+			counter = counter + 1;
+
+			if (counter == 30) aux = aux + 1, counter = 0, aux1 = 0;
+
+			fprintf(datawrite, " %lf \ %lf \ %lf \n ", x[i - 1], y[i - 1], amplitud[i - 1]);
+			printf( " %lf \ %lf \ %lf \n ", x[i - 1], y[i - 1], amplitud[i - 1]);
+			fclose(dataread);
+		}
+		fclose(datawrite);
+	}
+\end{lstlisting}
+
+
+\subsection{Scripts de representación de datos en GNUPlot}
+
+
+Para representar los espectros de los puntos del parche hemos utilizado GNUPlot. El script utilizado para dibujar los espectros evolucionando en el tiempo ha sido el siguiente.
+
+\begin{lstlisting}
+do for [i=1:300]{ set terminal pngcairo size 1280,720;
+outfile=sprintf('Espectro_punto%d.png',i); 
+set output outfile;
+ file=sprintf('PUNTO_FFT%d_frame.txt',i);
+set xrange[0:2000];set xlabel 'f(Hz)'; 
+set yrange[0:2E7]; set ylabel 'Amplitud(u.a)';
+filetitle=sprintf('FFT Punto %d',i); 
+set title filetitle;plot file with lines } 
+\end{lstlisting}
+
+Y para representar el los espectros completos hemos utilizado un script similar.
+
+\begin{lstlisting}
+do for [i=1:300]{ set terminal pngcairo size 1280,720;
+outfile=sprintf('Espectro_punto%d.png',i); 
+set output outfile;
+ file=sprintf('PUNTO_FFT%d.txt',i);
+set xrange[0:4000];set xlabel 'f(Hz)'; 
+set yrange[0:2E7]; set ylabel 'Amplitud(u.a)';
+filetitle=sprintf('FFT Punto %d',i); 
+set title filetitle;plot file with lines } 
+\end{lstlisting}
+
+Para representar la amplitud de cada frecuencia en las coordenadas de la membrana hemos utilizado una superposición de un objeto (un dibujo del borde de la membrana) y lo hemos interpolado con los datos experimentales, para adecuarlos a su forma.
+
+\begin{lstlisting}
+do for [i=1:10]{ 
+infile=snprintf('Mapa%d.txt',i)
+set table "tmp.txt";
+set dgrid3d 400,400,20;
+splot "Mapa1527.txt" u 1:2:3;
+unset table
+set xrange[-0.132:0.132];
+set yrange[-0.132:0.132];
+set size square;
+set title 'Mapa 1308 Hz';unset label;
+unset key
+r = 0.128;
+set object 1 circle front at 0,0 size r fillcolor rgb "black" lw 2;
+circle(x,y,z) = sqrt(x**2+y**2)>r ? NaN : z
+set terminal pngcairo size 720,720;
+set output 'mapa1308.png'
+set multiplot
+plot "tmp.txt" u 1:2:(circle($1,$2,$3)) w image
+unset object
+unset multiplot
+clear
+reset
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{thebibliography}{15}
+
+
+\bibitem{soundsimulation} Hon Kin. \textit{Sound simulation of a drum head}. The Hong Kong University of Science and Technology,
+Department of Mathematics,
+Scientific Computation Projects. Junio 1998.
+\newline
+
+\bibitem{master} Anders G{\"a}rder. \textit{Physical Modeling of Percussion Instruments}. Trabajo de fin de Máster. Department of Civil and Environmental Engineering,
+Division of Applied Acoustics,
+Room Acoustics Group. Chalmers University of Technology. 2005.
+\newline
+
+\bibitem{ecuacionesdif} Nahklé H. Asmar. \textit{Partial differential equations with Fourier series and boundary value problems}. Pearson Prentice Hall. 2005
+\newline
+
+\bibitem{articuloremo} Randy Wordland, Willia Miyahira. \textit{Physics of musical drum head damping using externally applied products}. Proceedings of Meetings on Acoustics. Vol 35. 2018.
+\newline
+
+\bibitem{afinado} Randy Wordland. \textit{Drum tuning: an experimental analysis of membrane modes under non-uniform tension}.
+Proceedings of Meetings on Acoustics. Vol 5. 2008.
+\newline
+
+\bibitem{taylor} John R. Taylor. \textit{Mecánica clásica}. Reverté. 2013.
+\newline
+
+\bibitem{luismi} Manuel Gadella, Luis Miguel Nieto. \textit{Métodos matemáticos avanzados para ciencias e ingenerías}.Universidad de Valladolid. 2000.
+\newline
+
+\bibitem{fisicamusical} Neville H. FletcherThomas D. Rossing. \textit{The Physics of Musical Instruments}. Springer New York. 2010.
+\newline
+
+\bibitem{musictutorial} Curtis Roads. \textit{The Computer Music Tutorial}. MIT Press. 1996.
+\newline
+
+\bibitem{gnuplot} Thomas Williams, Colin Kelley. \textit{GNUplot 5.2, An Interactive Plotting Program}.\\\texttt{http://sourceforge.net/projects/gnuplot}.2019
+\newline
+
+\bibitem{gsl} Mark Galassi,Jim Davies,James Thelier,Brian Gough,Gerard Jungman,Patrick Alken,Michael Booth, Fabrice Roosi, Rhys Ulerich. \textit{GNU Scientific Library, release 2.6} \\\texttt{https://www.gnu.org/software/gsl/doc/latex/gsl-ref.pdf}.2020.
+\newline
+
+
+
+
+
+
+
+
+
+\end{thebibliography}
+
+\end{document}
